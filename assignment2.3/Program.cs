@@ -65,9 +65,7 @@ namespace assignment2._3
             tsystem.GetTopServices();
 
             Console.WriteLine(tsystem.PrintTopServices());
-            Console.WriteLine("A - Add new teacher");
-            Console.WriteLine("T - Print teachers");
-            Console.WriteLine("S - Print top services");
+            PrintMenu();
             ConsoleKeyInfo answer = Console.ReadKey(true);
 
             while (answer.Key != ConsoleKey.Enter && answer.Key != ConsoleKey.Escape)
@@ -92,9 +90,7 @@ namespace assignment2._3
                     default:
                         break;
                 }
-                Console.WriteLine("A - Add new teacher");
-                Console.WriteLine("T - Print teachers");
-                Console.WriteLine("S - Print top services");
+                PrintMenu();
                 answer = Console.ReadKey(true);
             }
         }
@@ -126,6 +122,14 @@ namespace assignment2._3
                 ServiceName = serviceName,
                 TextColor = textColor
             };
+        }
+
+        private static void PrintMenu()
+        {
+            Console.WriteLine("A - Add new teacher");
+            Console.WriteLine("T - Print teachers");
+            Console.WriteLine("S - Print top services");
+            Console.WriteLine("Esc - Exit program\n");
         }
     }
 }
