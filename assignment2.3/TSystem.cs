@@ -42,6 +42,7 @@ namespace assignment2._3
         {
             string result = "";
             int maxLength = 0;
+
             foreach (Teacher teacher in Teachers)
             {
                 string Fio = Extension.FioExtension(teacher.Fio);
@@ -61,23 +62,44 @@ namespace assignment2._3
                 maxLength = Math.Max(newString.Length, maxLength);
             }
 
-            // Add HEAD
-            // Add JOPA
+            result =
+                HeaderCreator(maxLength, "=", "Teachers") +
+                result +
+                HeaderCreator(maxLength) +
+                "\n";
             return result;
         }
 
         public string PrintTopServices()
         {
             string result = "";
+            int maxLength = 0;
             List<TopServices> TopServices = GetTopServices();
+
             foreach (TopServices service in TopServices)
             {
-                result += service.TextColor +
+                string newString = service.TextColor +
                     service.ServiceName +
                     Colors.RESET +
                     "\n";
+                result += newString;
+                maxLength = Math.Max(newString.Length, maxLength);
             }
+
+            result =
+                HeaderCreator(maxLength, "=", "Top services") +
+                result +
+                HeaderCreator(maxLength) +
+                "\n";
             return result;
+        }
+
+        private string HeaderCreator(int length, string sChar = "-", string header = "")
+        {
+            header = header == "" ? "" : " " + header + " ";
+            int separatorLength = (length - header.Length) / 2;
+            string separator = String.Join("", Enumerable.Repeat(sChar, separatorLength).ToArray());
+            return separator + header + separator + "\n";
         }
 
     }

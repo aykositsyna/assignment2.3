@@ -65,6 +65,31 @@ namespace assignment2._3
             tsystem.GetTopServices();
 
             Console.WriteLine(tsystem.PrintTopServices());
+            Console.WriteLine("A - Add new teacher");
+            Console.WriteLine("T - Print teachers");
+            Console.WriteLine("S - Print top services");
+
+            string answer = Console.ReadLine();
+
+            switch (answer)
+            {
+                case "A":
+
+                    break;
+
+                case "T":
+                    Console.WriteLine(tsystem.PrintTopServices());
+                    break;
+
+                case "S":
+                    tsystem.GetTopServices();
+                    Console.WriteLine(tsystem.PrintTopServices());
+                    break;
+
+                default:
+                    break;
+            }
+
         }
     }
 }
