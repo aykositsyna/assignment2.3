@@ -28,14 +28,18 @@ namespace assignment2._3
 
         }
 
-        public void AddTeacher(Teacher newTeacher)
+        public string AddTeacher(Teacher newTeacher)
         {
             IsCanAddTeacher isCanAddTeacher = (name) => Teachers.Find((t) => t.Fio.Equals(name)) == null;
+            string result = "This teacher already exists, you can't add them :(";
 
             if (isCanAddTeacher(newTeacher.Fio))
             {
                 Teachers.Add(newTeacher);
+                result = "Teacher added";
             }
+            return result;
+
         }
 
         public string PrintTeachers()
