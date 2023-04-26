@@ -13,11 +13,13 @@ namespace assignment2._3
         public List<TopServices>  GetTopServices()
         {
             List<TopServices> TopServices = Teachers
-                .GroupBy(
-                    t => t.PrefferedService.ServiceName,
-                    (name, t) => new {Key = from n in t select n.PrefferedService, Count = t.Count()}
-                 )
-                .Select(g => new TopServices() { service = g.Key, CountOfUsing = g.Count }) // to do select service
+                .GroupBy(t => t.PrefferedService.ServiceName)
+                .Select(g => new TopServices()
+                {
+                    ServiceName = g.Key,
+                    TextColor = g.First().PrefferedService.TextColor,
+                    CountOfUsing = g.Count()
+                })
                 .OrderByDescending(g => g.CountOfUsing)
                 .Take(3)
                 .ToList();
@@ -42,17 +44,25 @@ namespace assignment2._3
             int maxLength = 0;
             foreach (Teacher teacher in Teachers)
             {
-                string newString = Extension.FioExtension(teacher.Fio) +
-                    "\t\t" +
-                    teacher.Institute +
-                    "\t" +
-                    teacher.PrefferedService.TextColor +
-                    teacher.PrefferedService.ServiceName +
-                    Colors.NORMAL +
-                    "\n";
+                string Fio = Extension.FioExtension(teacher.Fio);
+                string Institute = teacher.Institute;
+                Service service = teacher.PrefferedService;
+
+                string newString =
+                    Fio + "\t\t" +
+                    Institute + "\t" +
+                    service.TextColor + "[" + service.ServiceName + "]" +
+                    Colors.RESET + "\n";
+
                 result += newString;
-                maxLength = (newString.Length > maxLength) ? newString.Length : maxLength;
+                // maxLength = (newString.Length > maxLength)
+                //     ? newString.Length
+                //     : maxLength;
+                maxLength = Math.Max(newString.Length, maxLength);
             }
+
+            // Add HEAD
+            // Add JOPA
             return result;
         }
 
@@ -64,7 +74,7 @@ namespace assignment2._3
             {
                 result += service.TextColor +
                     service.ServiceName +
-                    Colors.NORMAL +
+                    Colors.RESET +
                     "\n";
             }
             return result;

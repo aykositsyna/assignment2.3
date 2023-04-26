@@ -20,7 +20,7 @@ namespace assignment2._3
                 PrefferedService = new Service()
                 {
                     ServiceName = "Skype",
-                    TextColor = Colors.BLUE,
+                    TextColor = Colors.Foreground.LIGHTBLUE,
                 }    
             });
             tsystem.Teachers.Add(new Teacher()
@@ -32,7 +32,7 @@ namespace assignment2._3
                 PrefferedService = new Service()
                 {
                     ServiceName = "Discord",
-                    TextColor = Colors.MAGENTA,
+                    TextColor = Colors.Foreground.VIOLET,
                 }
             });
             tsystem.Teachers.Add(new Teacher()
@@ -44,7 +44,7 @@ namespace assignment2._3
                 PrefferedService = new Service()
                 {
                     ServiceName = "Skype",
-                    TextColor = Colors.BLUE,
+                    TextColor = Colors.Foreground.LIGHTBLUE,
                 }
             });
             tsystem.Teachers.Add(new Teacher()
@@ -56,7 +56,7 @@ namespace assignment2._3
                 PrefferedService = new Service()
                 {
                     ServiceName = "SberJazz",
-                    TextColor = Colors.GREEN,
+                    TextColor = Colors.Foreground.LIGHTGREEN,
                 }
             });
 

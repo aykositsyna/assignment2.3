@@ -10,8 +10,9 @@ namespace assignment2._3
     {
         public static string FioExtension(this string input)
         {
-            string[] fullFio = input.Split(' ', '.');
-            return fullFio[0] + fullFio[1][0] + fullFio[2][0];
+            char[] separators = new char[] { ' ', '.' };
+            string[] fullFio = input.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            return fullFio[0] + " " + fullFio[1][0] + "." + fullFio[2][0] + ".";
         }
     }
 }
