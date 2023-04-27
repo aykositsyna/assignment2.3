@@ -14,17 +14,17 @@ namespace assignment2._3
             services.Add(new Service()
             {
                 ServiceName = "Skype",
-                TextColor = Colors.Foreground.LIGHTBLUE
+                TextColor = Colors.Foreground["LIGHTBLUE"]
             });
             services.Add(new Service()
             {
                 ServiceName = "Discord",
-                TextColor = Colors.Foreground.VIOLET
+                TextColor = Colors.Foreground["BLUE"]
             });
             services.Add(new Service()
             {
                 ServiceName = "SberJazz",
-                TextColor = Colors.Foreground.LIGHTGREEN
+                TextColor = Colors.Foreground["LIGHTGREEN"]
             });
 
             TSystem tsystem = new TSystem();
@@ -74,15 +74,18 @@ namespace assignment2._3
                 switch (answer.KeyChar)
                 {
                     case 'A':
+                    case 'a':
                         Console.WriteLine(tsystem.AddTeacher(CreateTeacher(services)));
                         Console.WriteLine(tsystem.PrintTeachers());
                         break;
 
                     case 'T':
+                    case 't':
                         Console.WriteLine(tsystem.PrintTeachers());
                         break;
 
                     case 'S':
+                    case 's':
                         tsystem.GetTopServices();
                         Console.WriteLine(tsystem.PrintTopServices());
                         break;
@@ -90,6 +93,7 @@ namespace assignment2._3
                     default:
                         break;
                 }
+
                 PrintMenu();
                 answer = Console.ReadKey(true);
             }
@@ -108,20 +112,41 @@ namespace assignment2._3
             teacher.Institute = Console.ReadLine();
             Console.Write("Enter preffered service: ");
             string serviceName = Console.ReadLine();
-            teacher.PrefferedService = services.Find(s => s.ServiceName == serviceName) ?? CreateService(serviceName);
+            teacher.PrefferedService = services.Find(s => s.ServiceName == serviceName) ?? CreateService(serviceName, services);
             return teacher;
         }
 
-        private static Service CreateService(string serviceName)
+        private static Service CreateService(string serviceName, List<Service> services)
         {
-            Console.WriteLine("Create new sevice {0}", serviceName);
+            Console.WriteLine("\nCreate new sevice {0}", serviceName);
             Console.Write("Enter service color: ");
             string textColor = Console.ReadLine();
-            return new Service()
+            string colorName = textColor;
+
+            if (!Colors.Foreground.TryGetValue(textColor, out textColor))
+            {
+                string newColor = "\x1b[38;2;";
+                Console.WriteLine($"\nCan't find color {colorName}. \nPlease add new color in 256-bit code.");
+                Console.Write("Red: ");
+                newColor += Console.ReadLine() + ";";
+                Console.Write("Green: ");
+                newColor += Console.ReadLine() + ";";
+                Console.Write("Blue: ");
+                newColor += Console.ReadLine() + "m";
+
+                Colors.Foreground.Add(colorName, newColor);
+                textColor = newColor;
+            }
+
+            Service newService = new Service()
             {
                 ServiceName = serviceName,
-                TextColor = textColor
+                TextColor = Console.IsOutputRedirected ? "" : textColor
             };
+
+            services.Add(newService);
+
+            return newService;
         }
 
         private static void PrintMenu()
