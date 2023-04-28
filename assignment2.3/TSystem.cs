@@ -85,6 +85,8 @@ namespace assignment2._3
                 string newString = service.TextColor +
                     service.ServiceName +
                     Colors.RESET +
+                    "\t" +
+                    service.CountOfUsing +
                     "\n";
                 result += newString;
                 maxLength = Math.Max(newString.Length, maxLength);
